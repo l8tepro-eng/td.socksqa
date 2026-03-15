@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TD.SOCKSQA — Your Socks | Our Life</title>
+<link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Barlow:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --black: #000000;
+    --white: #ffffff;
+    --off: #f5f5f5;
+    --border: #e0e0e0;
+    --muted: #888888;
+    --text: #222222;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--white);
+    color: var(--black);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+  h1, h2, h3, h4, h5, .nav-logo-text, .ticker-item,
+  .sec-h, .brand-h, .hero-title, .price-big,
+  .feat h4, .step h4, .order-cta h3, .delivery-section h2,
+  .ftr-logo-text, .g-cap h4, .stat-num {
+    font-family: 'Syncopate', sans-serif;
+  }
+  p, span, a, li, div, label, .sec-lbl, .s-lbl, .feat p,
+  .step p, .brand-p, .hero-sub, .hero-eyebrow, .price-lbl,
+  .cp-label, .g-cap p, .feat-num, .c-btn, .nav-links a,
+  .nav-cta, .clr-name, .brand-desc, .order-cta > p,
+  .country-tag, .footer p, .scroll-hint span {
+    font-family: 'Barlow', sans-serif;
+  }
+
+  /* CURSOR */
+  .cursor { position:fixed; width:10px; height:10px; background:var(--black); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); }
+  .cursor-ring { position:fixed; width:32px; height:32px; border:1.5px solid var(--black); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:transform 0.15s ease; opacity:0.35; }
+
+  /* NAV */
+  nav { position:fixed; top:0; left:0; right:0; z-index:500; display:flex; align-items:center; justify-content:space-between; padding:20px 56px; mix-blend-mode:difference; }
+  .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .nav-logo img { height:36px; width:36px; object-fit:cover; border-radius:4px; filter:invert(1); }
+  .nav-logo-text { font-size:14px; letter-spacing:4px; color:var(--white); }
+  .nav-links { display:flex; gap:40px; list-style:none; }
+  .nav-links a { font-size:11px; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:var(--white); text-decoration:none; opacity:0.8; transition:opacity 0.2s; }
+  .nav-links a:hover { opacity:0.4; }
+  .nav-cta { background:var(--white); color:var(--black); font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; padding:10px 22px; text-decoration:none; transition:opacity 0.2s; }
+  .nav-cta:hover { opacity:0.7; }
+
+  /* VIDEO HERO */
+  .video-hero { position:relative; width:100%; height:100vh; overflow:hidden; background:var(--black); }
+  .video-hero video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:grayscale(100%) contrast(1.1); }
+  .video-overlay { position:absolute; inset:0; background:rgba(0,0,0,0.5); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+  .hero-eyebrow { font-size:10px; font-weight:500; letter-spacing:7px; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:28px; animation:fadeUp 0.8s ease both; }
+  .hero-title { font-size:clamp(52px,10vw,140px); line-height:0.88; font-weight:700; color:var(--white); animation:fadeUp 0.8s ease 0.1s both; }
+  .hero-title .outline { -webkit-text-stroke:2px rgba(255,255,255,0.5); color:transparent; }
+  .hero-sub { font-size:11px; font-weight:400; letter-spacing:7px; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-top:28px; animation:fadeUp 0.8s ease 0.2s both; }
+  .hero-price { margin-top:48px; display:inline-flex; align-items:center; gap:20px; border:1px solid rgba(255,255,255,0.2); padding:20px 48px; animation:fadeUp 0.8s ease 0.3s both; }
+  .price-big { font-size:72px; color:var(--white); line-height:1; font-weight:700; }
+  .price-lbl { font-size:13px; font-weight:600; letter-spacing:4px; color:rgba(255,255,255,0.5); text-transform:uppercase; line-height:1.6; }
+  .hero-btns { display:flex; gap:16px; margin-top:40px; animation:fadeUp 0.8s ease 0.4s both; }
+  .btn-w { background:var(--white); color:var(--black); font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; padding:14px 32px; text-decoration:none; transition:opacity 0.2s; }
+  .btn-w:hover { opacity:0.75; }
+  .btn-g { border:1px solid rgba(255,255,255,0.25); color:var(--white); font-size:11px; font-weight:500; letter-spacing:3px; text-transform:uppercase; padding:14px 32px; text-decoration:none; transition:opacity 0.2s; }
+  .btn-g:hover { opacity:0.6; }
+  .scroll-hint { position:absolute; bottom:40px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:8px; animation:fadeUp 1s ease 0.9s both; }
+  .scroll-hint span { font-size:9px; font-weight:500; letter-spacing:5px; color:rgba(255,255,255,0.3); text-transform:uppercase; }
+  .scroll-line { width:1px; height:40px; background:linear-gradient(to bottom,rgba(255,255,255,0.35),transparent); animation:scrollPulse 2s ease infinite; }
+
+  /* TICKER */
+  .ticker { background:var(--black); overflow:hidden; padding:13px 0; }
+  .ticker-inner { display:flex; animation:ticker 32s linear infinite; white-space:nowrap; }
+  .ticker-item { font-size:11px; font-weight:500; letter-spacing:4px; color:var(--white); padding:0 36px; text-transform:uppercase; }
+  .ticker-sep { color:rgba(255,255,255,0.2); padding:0 10px; }
+
+  /* BRAND */
+  .brand-section { padding:100px 80px; background:var(--black); display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+  .sec-lbl { font-size:10px; font-weight:600; letter-spacing:5px; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:16px; }
+  .sec-lbl-light { color:rgba(255,255,255,0.25); }
+  .brand-h { font-size:clamp(32px,5vw,60px); line-height:0.95; color:var(--white); font-weight:700; margin-bottom:24px; }
+  .brand-h .dim { color:rgba(255,255,255,0.2); }
+  .brand-p { font-size:14px; font-weight:300; color:rgba(255,255,255,0.45); line-height:1.85; max-width:420px; margin-bottom:32px; }
+  .brand-stats { display:flex; gap:40px; }
+  .stat-num { font-size:38px; color:var(--white); line-height:1; font-weight:700; }
+  .s-lbl { font-size:10px; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.25); margin-top:6px; }
+  .logo-wrap { display:flex; align-items:center; justify-content:center; position:relative; }
+  .logo-wrap::before { content:''; position:absolute; width:270px; height:270px; border-radius:50%; border:1px solid rgba(255,255,255,0.07); }
+  .logo-wrap::after { content:''; position:absolute; width:340px; height:340px; border-radius:50%; border:1px dashed rgba(255,255,255,0.03); animation:spinSlow 30s linear infinite; }
+  .brand-logo-img { width:180px; height:180px; object-fit:cover; border-radius:18px; border:1px solid rgba(255,255,255,0.12); position:relative; z-index:2; transition:transform 0.3s; }
+  .brand-logo-img:hover { transform:scale(1.04); }
+
+  /* COLOR PICKER */
+  .colors-section { padding:100px 80px; background:var(--white); }
+  .sec-h { font-size:clamp(34px,5vw,62px); line-height:0.95; font-weight:700; }
+  .sec-h .dim { color:var(--muted); }
+  .color-picker-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:10px; margin-top:48px; }
+  .cp-card { position:relative; cursor:pointer; border:1.5px solid var(--border); background:var(--white); overflow:hidden; transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s; border-radius:4px; }
+  .cp-card:hover { transform:translateY(-6px); box-shadow:0 20px 50px rgba(0,0,0,0.15); border-color:var(--black); z-index:5; }
+  .cp-swatch { width:100%; height:70px; transition:height 0.3s ease,opacity 0.3s ease; }
+  .cp-card:hover .cp-swatch { height:0; opacity:0; }
+  .cp-sock-img { width:100%; height:150px; object-fit:contain; padding:8px; background:#f8f8f8; opacity:0; max-height:0; transition:max-height 0.35s ease,opacity 0.35s ease; display:block; }
+  .cp-card:hover .cp-sock-img { opacity:1; max-height:150px; }
+  .cp-label { display:block; padding:10px 10px; font-size:10px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--text); background:var(--white); transition:background 0.2s,color 0.2s; text-align:center; }
+  .cp-card:hover .cp-label { background:var(--black); color:var(--white); }
+
+  /* GALLERY */
+  .gallery-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:2px; }
+  .g-item { position:relative; overflow:hidden; background:#f0f0f0; }
+  .g-item img { width:100%; height:100%; display:block; object-fit:cover; transition:transform 0.5s ease; }
+  .g-item:hover img { transform:scale(1.03); }
+  .g-cap { position:absolute; bottom:0; left:0; right:0; padding:28px 20px 16px; background:linear-gradient(transparent,rgba(0,0,0,0.78)); }
+  .g-cap h4 { font-size:13px; font-weight:700; letter-spacing:2px; color:var(--white); }
+  .g-cap p { font-size:10px; font-weight:400; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-top:4px; }
+
+  /* FEATURES */
+  .features-section { padding:100px 80px; background:var(--black); }
+  .features-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; margin-top:56px; }
+  .feat { background:#0d0d0d; padding:40px 30px; border:1px solid #181818; position:relative; overflow:hidden; transition:background 0.2s; }
+  .feat:hover { background:#141414; }
+  .feat::before { content:''; position:absolute; top:0; left:0; width:100%; height:1px; background:var(--white); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
+  .feat:hover::before { transform:scaleX(1); }
+  .feat-num { font-size:10px; font-weight:600; letter-spacing:4px; color:rgba(255,255,255,0.2); margin-bottom:20px; text-transform:uppercase; }
+  .feat h4 { font-size:14px; font-weight:700; letter-spacing:1px; color:var(--white); margin-bottom:12px; }
+  .feat p { font-size:13px; font-weight:300; color:rgba(255,255,255,0.38); line-height:1.75; }
+
+  /* ORDER */
+  .order-section { padding:100px 80px; background:var(--white); display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+  .step { display:flex; gap:24px; align-items:flex-start; padding:26px 0; border-bottom:1px solid var(--border); }
+  .step:last-child { border-bottom:none; }
+  .st-num { font-size:38px; font-weight:700; color:rgba(0,0,0,0.07); line-height:1; min-width:58px; transition:color 0.2s; font-family:'Barlow',sans-serif; }
+  .step:hover .st-num { color:var(--black); }
+  .step h4 { font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+  .step p { font-size:13px; font-weight:300; color:var(--muted); line-height:1.75; }
+  .order-cta { background:var(--black); padding:48px 40px; position:relative; }
+  .order-cta::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--white); }
+  .order-cta h3 { font-size:30px; font-weight:700; color:var(--white); margin-bottom:10px; }
+  .order-cta > p { font-size:13px; font-weight:300; color:rgba(255,255,255,0.3); margin-bottom:32px; line-height:1.75; }
+  .c-btn { display:flex; align-items:center; gap:14px; padding:15px 22px; text-decoration:none; margin-bottom:10px; font-size:12px; font-weight:700; letter-spacing:3px; text-transform:uppercase; transition:opacity 0.2s; }
+  .c-btn:hover { opacity:0.7; }
+  .c-btn.wa { background:var(--white); color:var(--black); }
+  .c-btn.ig { border:1px solid rgba(255,255,255,0.18); color:var(--white); }
+  .c-btn .app-icon { width:22px; height:22px; object-fit:contain; }
+
+  /* DELIVERY */
+  .delivery-section { padding:80px; background:var(--off); text-align:center; }
+  .delivery-section h2 { font-size:clamp(30px,5vw,54px); font-weight:700; margin-bottom:12px; }
+  .delivery-section > p { color:var(--muted); font-size:12px; font-weight:500; margin-bottom:40px; letter-spacing:3px; text-transform:uppercase; }
+  .countries { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; max-width:640px; margin:0 auto; }
+  .country-tag { display:flex; align-items:center; gap:10px; background:var(--white); border:1px solid var(--border); padding:12px 20px; font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--text); transition:background 0.2s,color 0.2s,border-color 0.2s; }
+  .country-tag:hover { background:var(--black); color:var(--white); border-color:var(--black); }
+  .c-flag { font-size:18px; }
+
+  /* FOOTER */
+  footer { padding:44px 80px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; background:var(--white); }
+  .ftr-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .ftr-logo img { height:34px; width:34px; object-fit:cover; border-radius:50%; border:1px solid var(--border); }
+  .ftr-logo-text { font-size:14px; font-weight:700; letter-spacing:3px; color:var(--black); }
+  footer p { font-size:11px; font-weight:400; color:var(--muted); letter-spacing:2px; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes spinSlow { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+  @keyframes ticker { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+  @keyframes scrollPulse { 0%,100% { opacity:0.35; } 50% { opacity:0.9; } }
+  .reveal { opacity:0; transform:translateY(28px); transition:opacity 0.7s ease,transform 0.7s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  @media (max-width:1100px) { .color-picker-grid { grid-template-columns:repeat(4,1fr); } }
+  @media (max-width:900px) {
+    nav { padding:16px 24px; } .nav-links { display:none; }
+    .brand-section,.order-section { grid-template-columns:1fr; padding:60px 24px; gap:40px; }
+    .gallery-grid,.features-grid { grid-template-columns:1fr; }
+    .color-picker-grid { grid-template-columns:repeat(3,1fr); }
+    .colors-section,.delivery-section { padding:60px 24px; }
+    footer { padding:36px 24px; flex-direction:column; gap:16px; }
+  }
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="logo.jpg" alt="TD Logo">
+    <span class="nav-logo-text">TD.SOCKSQA</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#colors">Colors</a></li>
+    <li><a href="#product">Product</a></li>
+    <li><a href="#order">Order</a></li>
+    <li><a href="#delivery">Delivery</a></li>
+  </ul>
+  <a href="https://wa.me/97400000000" class="nav-cta">Order Now</a>
+</nav>
+
+<!-- VIDEO HERO -->
+<section class="video-hero">
+  <video autoplay muted loop playsinline>
+    <source src="video.mp4" type="video/mp4">
+  </video>
+  <div class="video-overlay">
+    <div class="hero-eyebrow">Qatar &middot; Gulf &middot; Worldwide</div>
+    <h1 class="hero-title">
+      YOUR<br>
+      <span class="outline">SOCKS</span><br>
+      OUR LIFE
+    </h1>
+    <p class="hero-sub">Anti-Slip &middot; Grip Technology &middot; Premium Performance</p>
+    <div class="hero-price">
+      <span class="price-big">50</span>
+      <div class="price-lbl">QAR<br>PER PAIR</div>
+    </div>
+    <div class="hero-btns">
+      <a href="https://wa.me/97400000000" class="btn-w">Order on WhatsApp</a>
+      <a href="#colors" class="btn-g">See Colors</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">YOUR SOCKS — OUR LIFE</span><span class="ticker-sep">/</span>
+    <span class="ticker-item">50 QAR ONLY</span><span class="ticker-sep">/</span>
+    <span class="ticker-item">DELIVERY ALL GULF</span><span class="ticker-sep">/</span>
+    <span class="ticker-item">QA · AE · SA · KW · BH · OM · GB · US</span><span class="ticker-sep">/</span>
+    <span class="ticker-item">ANTI-SLIP GRIP TECHNOLOGY</span><span class="ticker-sep">/</span>
+    <span class="ticker-item">DM TO ORDER</span><span class="ticker-sep">/</span>
+    <span class="ticker-item">YOUR SOCKS — OUR LIFE</span><span class="ticker-sep">/</span>
+    <span class="ticker-item">50 QAR ONLY</span><span class="ticker-sep">/</span>
+    <span class="ticker-item">DELIVERY ALL GULF</span><span class="ticker-sep">/</span>
+    <span class="ticker-item">QA · AE · SA · KW · BH · OM · GB · US</span><span class="ticker-sep">/</span>
+    <span class="ticker-item">ANTI-SLIP GRIP TECHNOLOGY</span><span class="ticker-sep">/</span>
+    <span class="ticker-item">DM TO ORDER</span><span class="ticker-sep">/</span>
+  </div>
+</div>
+
+<!-- BRAND -->
+<section class="brand-section" id="product">
+  <div class="reveal">
+    <span class="sec-lbl sec-lbl-light">About TD.SOCKSQA</span>
+    <h2 class="brand-h">THE BRAND<br><span class="dim">BEHIND THE GRIP</span></h2>
+    <p class="brand-p">TD.SOCKSQA brings premium anti-slip grip socks directly to football players across Qatar and the Gulf. Born from a passion for the game, trusted by players who demand performance in every touch.</p>
+    <div class="brand-stats">
+      <div><div class="stat-num">50</div><div class="s-lbl">QAR / pair</div></div>
+      <div><div class="stat-num">15+</div><div class="s-lbl">Colors</div></div>
+      <div><div class="stat-num">8</div><div class="s-lbl">Countries</div></div>
+    </div>
+  </div>
+  <div class="logo-wrap reveal">
+    <img src="logo.jpg" alt="TD Socks" class="brand-logo-img">
+  </div>
+</section>
+
+<!-- COLOR PICKER -->
+<section class="colors-section" id="colors">
+  <span class="sec-lbl reveal">Available Now</span>
+  <h2 class="sec-h reveal" style="margin-bottom:0;">PICK YOUR <span class="dim">COLOR</span></h2>
+  <div class="color-picker-grid reveal">
+
+    <div class="cp-card">
+      <div class="cp-swatch" style="background:#ffffff;border-bottom:1px solid #eee;"></div>
+      <img class="cp-sock-img" src="sock_white.png" alt="White">
+      <span class="cp-label">White</span>
+    </div>
+    <div class="cp-card">
+      <div class="cp-swatch" style="background:#111111;"></div>
+      <img class="cp-sock-img" src="sock_black.png" alt="Black">
+      <span class="cp-label">Black</span>
+    </div>
+    <div class="cp-card">
+      <div class="cp-swatch" style="background:#808080;"></div>
+      <img class="cp-sock-img" src="sock_gray.png" alt="Gray">
+      <span class="cp-label">Gray</span>
+    </div>
+    <div class="cp-card">
+      <div class="cp-swatch" style="background:#E74C3C;"></div>
+      <img class="cp-sock-img" src="sock_red.png" alt="Red">
+      <span class="cp-label">Red</span>
+    </div>
+    <div class="cp-card">
+      <div class="cp-swatch" style="background:#4169E1;"></div>
+      <img class="cp-sock-img" src="sock_blue.png" alt="Blue">
+      <span class="cp-label">Blue</span>
+    </div>
+    <div class="cp-card">
+      <div class="cp-swatch" style="background:#1A237E;"></div>
+      <img class="cp-sock-img" src="sock_navy.png" alt="Navy">
+      <span class="cp-label">Navy</span>
+    </div>
+    <div class="cp-card">
+      <div class="cp-swatch" style="background:#27AE60;"></div>
+      <img class="cp-sock-img" src="sock_green.png" alt="Green">
+      <span class="cp-label">Green</span>
+    </div>
+    <div class="cp-card">
+      <div class="cp-swatch" style="background:#00E676;"></div>
+      <img class="cp-sock-img" src="sock_neon_green.png" alt="Neon Green">
+      <span class="cp-label">Neon Green</span>
+    </div>
+    <div class="cp-card">
+      <div class="cp-swatch" style="background:#9B59B6;"></div>
+      <img class="cp-sock-img" src="sock_purple.png" alt="Purple">
+      <span class="cp-label">Purple</span>
+    </div>
+    <div class="cp-card">
+      <div class="cp-swatch" style="background:#FF69B4;"></div>
+      <img class="cp-sock-img" src="sock_pink.png" alt="Pink">
+      <span class="cp-label">Pink</span>
+    </div>
+    <div class="cp-card">
+      <div class="cp-swatch" style="background:#F4D03F;"></div>
+      <img class="cp-sock-img" src="sock_yellow.png" alt="Yellow">
+      <span class="cp-label">Yellow</span>
+    </div>
+    <div class="cp-card">
+      <div class="cp-swatch" style="background:#FF6600;"></div>
+      <img class="cp-sock-img" src="sock_orange.png" alt="Orange">
+      <span class="cp-label">Orange</span>
+    </div>
+    <div class="cp-card">
+      <div class="cp-swatch" style="background:#800020;"></div>
+      <img class="cp-sock-img" src="sock_maroon.png" alt="Maroon">
+      <span class="cp-label">Maroon</span>
+    </div>
+
+  </div>
+  <div style="text-align:center;margin-top:52px;" class="reveal">
+    <p style="font-size:12px;font-weight:500;letter-spacing:3px;color:var(--muted);margin-bottom:20px;text-transform:uppercase;">Can't decide? Ask us — we'll help.</p>
+    <a href="https://wa.me/97400000000" style="display:inline-flex;align-items:center;gap:10px;background:var(--black);color:var(--white);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:14px 32px;text-decoration:none;">Order via WhatsApp</a>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section">
+  <span class="sec-lbl reveal sec-lbl-light">Why TD.Socks</span>
+  <h2 class="sec-h reveal" style="color:var(--white);">BUILT FOR <span style="color:rgba(255,255,255,0.2);">PERFORMANCE</span></h2>
+  <div class="features-grid">
+    <div class="feat reveal"><div class="feat-num">01 / Anti-Slip</div><h4>Grip Technology</h4><p>Strategically placed grip dots give you total control whether you're sprinting, cutting, or striking.</p></div>
+    <div class="feat reveal"><div class="feat-num">02 / Comfort</div><h4>Moisture Wicking</h4><p>Advanced fabric technology pulls sweat away from your skin, keeping feet dry through the full 90 minutes.</p></div>
+    <div class="feat reveal"><div class="feat-num">03 / Fit</div><h4>Secure Compression</h4><p>Compression-style construction hugs your foot to eliminate slippage inside the boot.</p></div>
+    <div class="feat reveal"><div class="feat-num">04 / Style</div><h4>13 Colors</h4><p>From classic white and black to bold purple, yellow and pink — match your kit, your game.</p></div>
+    <div class="feat reveal"><div class="feat-num">05 / Delivery</div><h4>Fast Shipping</h4><p>Qatar same-day. Gulf within days. UK and US international shipping available on all orders.</p></div>
+    <div class="feat reveal"><div class="feat-num">06 / Price</div><h4>50 QAR Only</h4><p>Premium quality grip socks at an unbeatable price. No compromise on performance.</p></div>
+  </div>
+</section>
+
+<!-- ORDER -->
+<section class="order-section" id="order">
+  <div>
+    <span class="sec-lbl reveal">Simple Process</span>
+    <h2 class="sec-h reveal">HOW TO <span class="dim">ORDER</span></h2>
+    <div style="margin-top:48px;">
+      <div class="step reveal"><div class="st-num">01</div><div><h4>Choose Your Color</h4><p>Browse the collection and pick your preferred color, or tell us your kit and we'll recommend the match.</p></div></div>
+      <div class="step reveal"><div class="st-num">02</div><div><h4>Contact Us</h4><p>DM on Instagram or WhatsApp with the color and quantity you want.</p></div></div>
+      <div class="step reveal"><div class="st-num">03</div><div><h4>Confirm and Pay</h4><p>We confirm your order, send payment details, and get your socks ready for delivery.</p></div></div>
+      <div class="step reveal"><div class="st-num">04</div><div><h4>Receive and Play</h4><p>Fast delivery to your door. Unbox, lace up, and dominate the pitch.</p></div></div>
+    </div>
+  </div>
+  <div class="reveal">
+    <div class="order-cta">
+      <h3>READY?</h3>
+      <p>Choose your channel. We respond fast. Qatar orders can be arranged same day.</p>
+      <a href="https://wa.me/97400000000" class="c-btn wa">
+        <svg class="app-icon" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Order on WhatsApp
+      </a>
+      <a href="https://instagram.com/td.socksqa" class="c-btn ig">
+        <svg class="app-icon" viewBox="0 0 24 24" fill="url(#ig-grad)"><defs><linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#f09433"/><stop offset="25%" style="stop-color:#e6683c"/><stop offset="50%" style="stop-color:#dc2743"/><stop offset="75%" style="stop-color:#cc2366"/><stop offset="100%" style="stop-color:#bc1888"/></linearGradient></defs><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        DM on Instagram
+      </a>
+      <p style="margin-top:20px;font-size:11px;font-weight:400;color:rgba(255,255,255,0.2);letter-spacing:2px;">Bulk orders welcome &middot; Team discounts available</p>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERY -->
+<section class="delivery-section" id="delivery">
+  <span class="sec-lbl reveal">Worldwide Shipping</span>
+  <h2 class="reveal">WE DELIVER TO</h2>
+  <p class="reveal">Fast shipping across the Gulf and beyond</p>
+  <div class="countries reveal">
+    <div class="country-tag"><span class="c-flag">&#127478;&#127462;</span> Qatar</div>
+    <div class="country-tag"><span class="c-flag">&#127462;&#127466;</span> United Arab Emirates</div>
+    <div class="country-tag"><span class="c-flag">&#127480;&#127462;</span> Saudi Arabia</div>
+    <div class="country-tag"><span class="c-flag">&#127472;&#127484;</span> Kuwait</div>
+    <div class="country-tag"><span class="c-flag">&#127463;&#127469;</span> Bahrain</div>
+    <div class="country-tag"><span class="c-flag">&#127476;&#127474;</span> Oman</div>
+    <div class="country-tag"><span class="c-flag">&#127468;&#127463;</span> United Kingdom</div>
+    <div class="country-tag"><span class="c-flag">&#127482;&#127480;</span> United States</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="ftr-logo">
+    <img src="logo.jpg" alt="TD Logo">
+    <span class="ftr-logo-text">TD.SOCKSQA</span>
+  </a>
+  <p>YOUR SOCKS &middot; OUR LIFE &middot; 50 QAR</p>
+  <p>&copy; 2026 td.socksqa &middot; Qatar</p>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e => {
+    mx=e.clientX; my=e.clientY;
+    cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+  });
+  function animateRing(){
+    rx+=(mx-rx)*0.15; ry+=(my-ry)*0.15;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){
+        setTimeout(()=>e.target.classList.add('visible'),i*80);
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
