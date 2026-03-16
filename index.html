@@ -60,9 +60,9 @@
   .hero-title { font-size:clamp(52px,10vw,140px); line-height:0.88; font-weight:700; color:var(--white); animation:fadeUp 0.8s ease 0.1s both; }
   .hero-title .outline { -webkit-text-stroke:2px rgba(255,255,255,0.5); color:transparent; }
   .hero-sub { font-size:11px; font-weight:400; letter-spacing:7px; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-top:28px; animation:fadeUp 0.8s ease 0.2s both; }
-  .hero-price { margin-top:48px; display:inline-flex; align-items:center; gap:20px; border:1px solid rgba(255,255,255,0.2); padding:20px 48px; animation:fadeUp 0.8s ease 0.3s both; }
-  .price-big { font-size:72px; color:var(--white); line-height:1; font-weight:700; }
-  .price-lbl { font-size:13px; font-weight:600; letter-spacing:4px; color:rgba(255,255,255,0.5); text-transform:uppercase; line-height:1.6; }
+  .hero-price { margin-top:48px; display:inline-flex; align-items:baseline; gap:10px; border:1px solid rgba(255,255,255,0.2); padding:16px 36px; animation:fadeUp 0.8s ease 0.3s both; }
+  .price-big { font-size:56px; color:var(--white); line-height:1; font-weight:700; }
+  .price-lbl { font-size:11px; font-weight:400; letter-spacing:3px; color:rgba(255,255,255,0.35); text-transform:uppercase; }
   .hero-btns { display:flex; gap:16px; margin-top:40px; animation:fadeUp 0.8s ease 0.4s both; }
   .btn-w { background:var(--white); color:var(--black); font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; padding:14px 32px; text-decoration:none; transition:opacity 0.2s; }
   .btn-w:hover { opacity:0.75; }
@@ -101,10 +101,8 @@
   .color-picker-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:10px; margin-top:48px; }
   .cp-card { position:relative; cursor:pointer; border:1.5px solid var(--border); background:var(--white); overflow:hidden; transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s; border-radius:4px; }
   .cp-card:hover { transform:translateY(-6px); box-shadow:0 20px 50px rgba(0,0,0,0.15); border-color:var(--black); z-index:5; }
-  .cp-swatch { width:100%; height:70px; transition:height 0.3s ease,opacity 0.3s ease; }
-  .cp-card:hover .cp-swatch { height:0; opacity:0; }
-  .cp-sock-img { width:100%; height:150px; object-fit:contain; padding:8px; background:#f8f8f8; opacity:0; max-height:0; transition:max-height 0.35s ease,opacity 0.35s ease; display:block; }
-  .cp-card:hover .cp-sock-img { opacity:1; max-height:150px; }
+  .cp-swatch { display:none; }
+  .cp-sock-img { width:100%; height:160px; object-fit:contain; padding:12px; background:#f8f8f8; opacity:1; display:block; }
   .cp-label { display:block; padding:10px 10px; font-size:10px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--text); background:var(--white); transition:background 0.2s,color 0.2s; text-align:center; }
   .cp-card:hover .cp-label { background:var(--black); color:var(--white); }
 
@@ -167,7 +165,7 @@
   @keyframes spinSlow { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
   @keyframes ticker { from { transform:translateX(0); } to { transform:translateX(-50%); } }
   @keyframes scrollPulse { 0%,100% { opacity:0.35; } 50% { opacity:0.9; } }
-  .reveal { opacity:0; transform:translateY(28px); transition:opacity 0.7s ease,transform 0.7s ease; }
+  .reveal { opacity:1; transform:none; }
   .reveal.visible { opacity:1; transform:translateY(0); }
 
   @media (max-width:1100px) { .color-picker-grid { grid-template-columns:repeat(4,1fr); } }
@@ -197,7 +195,7 @@
     <li><a href="#order">Order</a></li>
     <li><a href="#delivery">Delivery</a></li>
   </ul>
-  <a href="https://wa.me/97460091984" class="nav-cta">Order Now</a>
+  <a href="https://wa.me/97400000000" class="nav-cta">Order Now</a>
 </nav>
 
 <!-- VIDEO HERO -->
@@ -206,7 +204,7 @@
     <source src="video.mp4" type="video/mp4">
   </video>
   <div class="video-overlay">
-    <div class="hero-eyebrow">Qatar &middot; Gulf</div>
+    <div class="hero-eyebrow">Qatar &middot; Gulf &middot; Worldwide</div>
     <h1 class="hero-title">
       YOUR<br>
       <span class="outline">SOCKS</span><br>
@@ -215,10 +213,10 @@
     <p class="hero-sub">Anti-Slip &middot; Grip Technology &middot; Premium Performance</p>
     <div class="hero-price">
       <span class="price-big">50</span>
-      <div class="price-lbl">QAR<br>PER PAIR</div>
+      <div class="price-lbl">QAR<br>per pair</div>
     </div>
     <div class="hero-btns">
-      <a href="https://wa.me/97460091984" class="btn-w">Order on WhatsApp</a>
+      <a href="https://wa.me/97400000000" class="btn-w">Order on WhatsApp</a>
       <a href="#colors" class="btn-g">See Colors</a>
     </div>
   </div>
@@ -234,13 +232,13 @@
     <span class="ticker-item">YOUR SOCKS — OUR LIFE</span><span class="ticker-sep">/</span>
     <span class="ticker-item">50 QAR ONLY</span><span class="ticker-sep">/</span>
     <span class="ticker-item">DELIVERY ALL GULF</span><span class="ticker-sep">/</span>
-    <span class="ticker-item">QA · AE · SA · KW · BH · OM</span><span class="ticker-sep">/</span>
+    <span class="ticker-item">QA · AE · SA · KW · BH · OM · GB · US</span><span class="ticker-sep">/</span>
     <span class="ticker-item">ANTI-SLIP GRIP TECHNOLOGY</span><span class="ticker-sep">/</span>
     <span class="ticker-item">DM TO ORDER</span><span class="ticker-sep">/</span>
     <span class="ticker-item">YOUR SOCKS — OUR LIFE</span><span class="ticker-sep">/</span>
     <span class="ticker-item">50 QAR ONLY</span><span class="ticker-sep">/</span>
     <span class="ticker-item">DELIVERY ALL GULF</span><span class="ticker-sep">/</span>
-    <span class="ticker-item">QA · AE · SA · KW · BH · OM</span><span class="ticker-sep">/</span>
+    <span class="ticker-item">QA · AE · SA · KW · BH · OM · GB · US</span><span class="ticker-sep">/</span>
     <span class="ticker-item">ANTI-SLIP GRIP TECHNOLOGY</span><span class="ticker-sep">/</span>
     <span class="ticker-item">DM TO ORDER</span><span class="ticker-sep">/</span>
   </div>
@@ -338,7 +336,7 @@
   </div>
   <div style="text-align:center;margin-top:52px;" class="reveal">
     <p style="font-size:12px;font-weight:500;letter-spacing:3px;color:var(--muted);margin-bottom:20px;text-transform:uppercase;">Can't decide? Ask us — we'll help.</p>
-    <a href="https://wa.me/97460091984" style="display:inline-flex;align-items:center;gap:10px;background:var(--black);color:var(--white);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:14px 32px;text-decoration:none;">Order via WhatsApp</a>
+    <a href="https://wa.me/97400000000" style="display:inline-flex;align-items:center;gap:10px;background:var(--black);color:var(--white);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:14px 32px;text-decoration:none;">Order via WhatsApp</a>
   </div>
 </section>
 
@@ -372,7 +370,7 @@
     <div class="order-cta">
       <h3>READY?</h3>
       <p>Choose your channel. We respond fast. Qatar orders can be arranged same day.</p>
-      <a href="https://wa.me/97460091984" class="c-btn wa">
+      <a href="https://wa.me/97400000000" class="c-btn wa">
         <svg class="app-icon" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
         Order on WhatsApp
       </a>
@@ -397,6 +395,8 @@
     <div class="country-tag"><span class="c-flag">&#127472;&#127484;</span> Kuwait</div>
     <div class="country-tag"><span class="c-flag">&#127463;&#127469;</span> Bahrain</div>
     <div class="country-tag"><span class="c-flag">&#127476;&#127474;</span> Oman</div>
+    <div class="country-tag"><span class="c-flag">&#127468;&#127463;</span> United Kingdom</div>
+    <div class="country-tag"><span class="c-flag">&#127482;&#127480;</span> United States</div>
   </div>
 </section>
 
@@ -424,15 +424,7 @@
     requestAnimationFrame(animateRing);
   }
   animateRing();
-  const obs = new IntersectionObserver(entries=>{
-    entries.forEach((e,i)=>{
-      if(e.isIntersecting){
-        setTimeout(()=>e.target.classList.add('visible'),i*80);
-        obs.unobserve(e.target);
-      }
-    });
-  },{threshold:0.1});
-  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  // reveals visible by default
 </script>
 </body>
 </html>
